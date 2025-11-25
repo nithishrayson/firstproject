@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECE Student Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef2f7;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #005fcc;
+            padding: 15px 25px;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logout-btn {
+            background: #ff3b30;
+            border: none;
+            padding: 10px 18px;
+            color: white;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #d82a21;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #222;
+            border-left: 4px solid #005fcc;
+            padding-left: 12px;
+        }
+
+        /* PROFILE SECTION */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-pic {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #005fcc;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Chips */
+        .tag {
+            display: inline-block;
+            padding: 8px 14px;
+            background: #e6f0ff;
+            color: #005fcc;
+            border-radius: 6px;
+            font-size: 14px;
+            margin: 5px 6px 0 0;
+        }
+
+        .info {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="navbar">
+        SECE Student Dashboard
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <div class="profile-container">
+                <div class="profile-pic">
+                    <img src="profile.jpg" alt="Profile Photo">
+                </div>
+                <div>
+                    <h2 id="studentName">SECE Student</h2>
+                    <p id="studentEmail">student@sece.ac.in</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">About</h3>
+            <p class="info">
+                Welcome to your student dashboard!  
+                Manage your profile, skills, and project highlights — all in one place.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Skills</h3>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Projects</h3>
+            <span class="tag">Portfolio Website</span>
+            <span class="tag">Student Management App</span>
+            <span class="tag">Mini AI Chatbot</span>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Achievements</h3>
+            <p class="info">
+                • Hackathon Finalist (2024) <br>
+                • Python Certification Completed <br>
+                • Academic Excellence Award <br>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("studentName").textContent = "SECE Student";
+        document.getElementById("studentEmail").textContent = "student@sece.ac.in";
+
+        function logout() {
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    <style>
+        /* --- GLOBAL PAGE STYLE --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* --- CARD CONTAINER --- */
+        .container {
+            background: #ffffff;
+            width: 380px;
+            padding: 30px 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* --- INPUT BOXES --- */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: 1.4px solid #cccccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 4px rgba(0, 123, 255, 0.35);
+        }
+
+        /* --- BUTTON --- */
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #005fcc;
+        }
+
+        /* --- INFO TEXT & LINKS --- */
+        .bottom-text {
+            margin-top: 12px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .bottom-text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .bottom-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- MESSAGES --- */
+        #message {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 15px;
+            height: 18px;
+        }
+
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Create Account</h2>
+
+    <form id="signupForm">
+
+        <div class="input-group">
+            <input type="email" id="email" placeholder="Enter SECE email" required>
+        </div>
+
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Enter password" required>
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+        <p class="bottom-text">
+            Already have an account? 
+            <a href="login.html">Login here</a>
+        </p>
+    </form>
+
+    <p id="message"></p>
+</div>
+
+<script>
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const msg = document.getElementById("message");
+        msg.textContent = "";
+        msg.className = "";
+
+        if (!email.endsWith("@sece.ac.in")) {
+            msg.textContent = "Only @sece.ac.in emails are allowed.";
+            msg.className = "error";
+            return;
+        }
+
+        const response = await fetch("http://localhost:3000/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.message === "Signup successful!") {
+            msg.textContent = "Signup Successful!";
+            msg.className = "success";
+
+            setTimeout(() => {
+                window.location.href = "home.html";
+            }, 800);
+        } 
+        else {
+            msg.textContent = data.message;
+            msg.className = "error";
+        }
+    });
+</script>
+
+</body>
+</html>
