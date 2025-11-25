@@ -1,0 +1,35 @@
+ <!doctype html>
+ <html lang="en">
+ <head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <title>Org Anonymous Chat</title>
+ <link rel="stylesheet" href="style.css">
+
+ </head>
+ <body>
+ <div class="wrap">
+ <header>
+ <h1>Org Anonymous Chat</h1>
+ <div id="status">Not signed in</div>
+ </header>
+ <main>
+ <section id="login-panel" class="card">
+ <h2>Sign in (organization only)</h2>
+ <input id="email" type="email" placeholder="you@sece.ac.in" />
+<small style="display:block;margin-top:8px;color:#666">Use the college-provided <strong>@sece.ac.in</strong> account and password. If you don't have one, contact your college administration — accounts are pre-provisioned.</small>
+ <input id="password" type="password" placeholder="Password" />
+ <button id="signin">Sign in</button>
+ <p id="login-error" class="error"></p>
+ </section>
+ <!-- app UI has moved to board.html. After signing in with a @sece.ac.in email you'll be redirected to the suggestion board. -->
+ </main>
+ <footer>
+ <small>Only members listed in the organization's allowedUsers 
+collection can access. Emails are stored but not shown publicly.</small>
+ </footer>
+ </div>
+ <script type="module" src="firebase-config.example.js"></script>
+ <script type="module" src="app.js"></script>
+ </body>
+ </html>

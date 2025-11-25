@@ -1,0 +1,42 @@
+ rules_version = '2';
+ service cloud.firestore {
+ match /databases/{database}/documents {
+ // allowedUsers: read-only for clients (admins populate this list)
+ match /allowedUsers/{email} {
+ allow read: if request.auth != null &&
+ request.auth.token.email_verified == true &&
+ request.auth.token.email.matches('^.*@' + 'sece.ac.in' + '$');
+ allow write: if false; // manage via admin only
+ }
+ // store of user logins (audit) - clients should not read this
+ match /userLogins/{email} {
+ allow create: if request.auth != null && request.auth.token.email == email;
+ allow update: if false;
+ allow read: if false;
+ }
+ // messages: anyone authenticated who is in org can read and create message
+ match /messages/{msgId} {
+ allow read: if request.auth != null &&
+ request.auth.token.email_verified == true &&
+ request.auth.token.email.matches('^.*@' + 'your-org.com' + '$');
+ allow create: if request.auth != null
+ && request.resource.data.keys().hasAll(['text','anonId','createdAt'])
+ && request.resource.data.text is string
+ && request.resource.data.text.size() <= 2000;
+ allow update, delete: if isAdmin();
+ // Votes subcollection
+ match /votes/{uid} {
+ // user can create/update/delete their own vote doc only if from org domain
+ allow create, update, delete: if request.auth != null &&
+ request.auth.uid == uid
+ && request.auth.token.email_verified == true
+ && request.auth.token.email.matches('^.*@' + 'your-org.com' + '$');
+ // don't allow clients to list other users' votes
+ allow read: if false;
+ }
+ }
+ function isAdmin(){
+ return request.auth != null && request.auth.token.admin == true;
+ }
+ }
+ }
